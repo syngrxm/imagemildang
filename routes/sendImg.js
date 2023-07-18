@@ -23,7 +23,7 @@ const imgStorage = multer.memoryStorage({
 
 const upload = multer({ storage: imgStorage }); // 파일 업로드 객체
 
-router.post("/sendImg", upload.single("file"), async (req, res) => {
+router.post("/sendImg", async (req, res) => {
   const { imgName, imgData } = req.body;
   const dcdImg = Buffer.from(imgData, "base64"); // 디코딩
   try {
