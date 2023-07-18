@@ -27,7 +27,7 @@ router.post("/sendImg", upload.single("file"), async (req, res) => {
   const { imgName, imgData } = req.body;
   const dcdImg = Buffer.from(imgData, "base64"); // 디코딩
   try {
-    await uploadImage(imgName, dcdImg);
+    await ulImg(imgName, dcdImg);
     res.status(200).json({ message: "이미지 저장 성공적 " });
   } catch (error) {
     res.status(500).json({ message: "이미지 저장 실패" });

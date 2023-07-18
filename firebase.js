@@ -1,11 +1,3 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyDCbqTpIYrJEKMPWlJFA4JtPsQd8t4GCTM",
   authDomain: "firstimg-f2b2d.firebaseapp.com",
@@ -21,12 +13,11 @@ const firebaseConfig = {
 const admin = require("firebase-admin");
 const serviceAccount = require("./serviceAccountKey.json");
 admin.initializeApp({
-  credential: admin.credential.cert(serviceaccount),
+  credential: admin.credential.cert(serviceAccount),
   storageBucket: "gs://firstimg-f2b2d.appspot.com",
 });
 
 const db = admin.firestore();
-const storage = admin.storage.bucket();
 const firebase = require("./firebase");
 const bucket = admin.storage().bucket();
 
@@ -40,4 +31,8 @@ async function ulImg(imgName, imgData) {
   }
 }
 
-module.exports = database;
+module.exports = {
+  ulImg,
+  db,
+  bucket,
+};
