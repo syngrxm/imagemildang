@@ -31,19 +31,24 @@ async function ulImg(imgName, imgData) {
   }
 }
 
-async function dlImg(imgName) {
+async function dlImg(imgName, res) {
   try {
     const imageLive = db.collection("images").doc(imgName);
     const doc = await imageLive.get();
     if (!doc.exists) {
-      throw new Error("이미지 이름 Firestore에 존재 x");
+      throw new Error("이미지 이름 firestore에 존재 x");
+    } else {
+      const file = bucket.file(imgName);
+      const [fileSave] = await file.download();
+      const imgData = fileSave.toString("base64");
+      return imgData;
     }
-    const file = bucket.file(imgName);
-    const [fileSave] = await file.download();
-    const imgData = fileSave.toString("base64");
-    return imgData;
   } catch (error) {
-    throw error;
+    if (res) {
+      res.status(400);
+    } else {
+      throw error;
+    }
   }
 }
 
