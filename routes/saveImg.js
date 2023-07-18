@@ -1,27 +1,16 @@
 const express = require("express");
 const fs = require("fs");
-const path = require("path");
 const router = express.Router();
-
-router.use(express.json());
+const { dlImg } = require("../firebase");
 
 router.post("/saveImg", async (req, res) => {
   const { imgName } = req.body;
+
   try {
-    const imgimg = db.collection("images").doc(imgName);
-    const doc = await imgimg.get();
-    if (!doc.exists) {
-      res.status(500).json({ message: "이미지를 찾을 수 없음 " });
-    }
-    const imgPath = path.resolve(__dirname, "../uploads", imgName);
-    const file = bucket.flie(imgName);
-    const fileReadStream = file.createReadStream();
-    const writeStream = fs.createWriteStream(imgPath);
-    fileReadStream.on("finish", () => {
-      res.sendFile(imgPath);
-    });
+    const imgData = await dlImg(imgName);
+    res.status(200).json({ message: "이미지 다운로드 성공이요 형씨", imgData });
   } catch (error) {
-    // 여기서 에러나면 뭔에러지
+    res.status(500).json({ message: "이미지 다운로드 실패임 밥통아" });
   }
 });
 module.exports = router;
