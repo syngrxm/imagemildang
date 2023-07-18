@@ -11,7 +11,7 @@ const firebaseConfig = {
 // Initialize Firebase
 
 const admin = require("firebase-admin");
-const serviceAccount = require("./serviceAccountKey.json");
+const serviceAccount = require("/home/sumin/imagemildang/serviceAccountKey.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   storageBucket: "gs://firstimg-f2b2d.appspot.com",

@@ -19,4 +19,4 @@ app.listen(app.get("port"), () => {
   console.log(app.get("port"), "번 포트에서 대기 중!");
 });
 
-const myData = require("/home/sumin/imagemildang/firstimg-f2b2d-firebase-adminsdk-far95-f5731a772f.json");
+const firebase = require("./firebase");
