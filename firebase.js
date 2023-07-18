@@ -27,12 +27,32 @@ async function ulImg(imgName, imgData) {
     const file = bucket.file(imgName);
     await file.save(imgData, { contentType: "image/jpeg" });
   } catch (error) {
-    throw error;
+    res.status(500);
+  }
+}
+
+async function dlImg(imgName) {
+  try {
+    const imageLive = db.collection("images").doc(imgName);
+    const doc = await imageLive.get();
+    if (!doc.exists) {
+      return res
+        .status(400)
+        .json({ message: "이미지 이름이 Firestore에 존재 x" });
+    }
+    const file = bucket.file(imgName);
+    const [fileSave] = await file.download();
+    const imgData = fileSave.toString("base64");
+
+    res.status(200).json({ message: "이미지 다운로드 성공이요 형씨", imgData });
+  } catch (error) {
+    res.status(500).json({ message: "이미지 다운로드 실패요 바보님" });
   }
 }
 
 module.exports = {
   ulImg,
+  dlImg,
   db,
   bucket,
 };
