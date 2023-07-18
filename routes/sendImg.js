@@ -11,8 +11,7 @@ router.use(express.json()); // json 데이터를 express가 읽을 수 있도록
 // 내장 미들웨어 설정
 router.use(cors());
 
-/* 서버저장필요없음 
-const imgStorage = multer.diskStorage({
+const imgStorage = multer.memoryStorage({
   destination: (req, file, cb) => {
     cb(null, "../uploads"); // 서버 파일 시스템에서 이미지 파이 ㄹ저장
   },
@@ -21,7 +20,6 @@ const imgStorage = multer.diskStorage({
     cb(null, name); // 파일 이름 설정해 주기
   },
 });
-*/
 
 const upload = multer({ storage: imgStorage }); // 파일 업로드 객체
 
