@@ -11,7 +11,7 @@ const firebaseConfig = {
 // Initialize Firebase
 
 const admin = require("firebase-admin");
-const serviceAccount = require("/home/sumin/imagemildang/serviceAccountKey.json");
+const serviceAccount = require("./serviceAccountKey.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   storageBucket: "gs://firstimg-f2b2d.appspot.com",
@@ -25,7 +25,7 @@ async function ulImg(imgName, imgData) {
   try {
     await db.collection("images").add({ imageName: imgName });
     const file = bucket.file(imgName);
-    await file.save(imgData, { contentType: "image/jpeg" });
+    await file.save(imgData, { contentType: ("image/jpeg" || "image/png") });
   } catch (error) {
     throw error;
   }
