@@ -40,7 +40,8 @@ async function ulImg(imgName, imgData) {
   try {
     await db.collection("images").add({ imageName: imgName });
     const file = bucket.file(imgName);
-    await file.save(imgData, { contentType: ("image/jpeg" || "image/png") });
+    const contentType = imgData.includes("png") ? "image/png" : "image/jpeg";
+    await file.save(imgData, { contentType: contentType });
   } catch (error) {
     throw error;
   }
