@@ -1,17 +1,32 @@
+require("dotenv").config();
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDCbqTpIYrJEKMPWlJFA4JtPsQd8t4GCTM",
-  authDomain: "firstimg-f2b2d.firebaseapp.com",
-  projectId: "firstimg-f2b2d",
-  storageBucket: "firstimg-f2b2d.appspot.com",
-  messagingSenderId: "302748673698",
-  appId: "1:302748673698:web:95281f61d859f8213119fb",
-  measurementId: "G-13KBVRR11Y",
+  apiKey: process.env.apiKey,
+  authDomain: process.env.authDomain,
+  projectId: process.env.projectId,
+  storageBucket: process.env.storageBucket,
+  messagingSenderId: process.env.messagingSenderId,
+  appId: process.env.appId,
+  measurementId: process.env.measurementId,
 };
 
 // Initialize Firebase
 
 const admin = require("firebase-admin");
-const serviceAccount = require("./serviceAccountKey.json");
+const serviceAccount = {
+  "type": process.env.type,
+  "project_id": process.env.project_id,
+  "private_key_id": process.env.private_key_id,
+  "private_key": process.env.private_key,
+  "client_email": process.env.lient_email,
+  "client_id": process.env.client_id,
+  "auth_uri": process.env.auth_uri,
+  "token_uri": process.env.token_uri,
+  "auth_provider_x509_cert_url": process.env.auth_provider_x509_cert_url,
+  "client_x509_cert_url": process.env.client_x509_cert_url,
+  "universe_domain": process.env.universe_domain
+};
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   storageBucket: "gs://firstimg-f2b2d.appspot.com",
