@@ -13,9 +13,7 @@ const firebaseConfig = {
 // Initialize Firebase
 
 const admin = require("firebase-admin");
-
-const serviceAccount = require("./firstimg-f2b2d-firebase-adminsdk-far95-deecf8176f.json")
-
+const serviceAccount = require("./firstimg-f2b2d-firebase-adminsdk-far95-deecf8176f.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   storageBucket: "gs://firstimg-f2b2d.appspot.com",
@@ -35,7 +33,6 @@ async function ulImg(imgName, imgData) {
     throw error;
   }
 }
-
 async function dlImg(imgName, res) {
   try {
     const imageLive = db.collection("images").doc(imgName);
